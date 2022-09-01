@@ -24,26 +24,18 @@ console.log(makePairs(data2)); // [['a', 1], ['b', 2]]
 //3
 const data3 = { a: 1, b: 2 };
 
-function without (item, value) {
-    // let newData = {}
-    // if(item.filter(el => Object.keys[el] === value).length > 0){
-    //     console.log(newData.push(item))
-    // }
-    for (const key in item) { // meal is an object
-        // console.log('key is', key);
-        
-        if (key.includes(value) && item[key] !== '') {
-    
-            delete item.value
-            return item
-        }
-        
-      }
+function without (item, ...value) {
+//write your code here 
+    const newItem = {...item}
 
-    // const result = this.menu.filter(el => el.name === item).length > 0 // returns an array
+    value.forEach((arg) => {
+        delete newItem[arg]
+    });
+
+    return newItem
 
 }
-//write your code here 
+
 console.log(without(data3, 'b')); // { a: 1 }
 
 
@@ -69,7 +61,7 @@ console.log(isEmpty(data4)); // false
 console.log(isEmpty(data40)); // true 
 console.log(isEmpty(data22));
 console.log(isEmpty(data33));
-
+console.log("-------------")
 //5
 const data5 = { a: 1, b: 1 };  
 const data51 = { a: 1, b: 1 };  
@@ -106,9 +98,22 @@ console.log(isEqual(data5, data51)); // true
 console.log(isEqual(data5, data52)); // false
 
 //6
-// const data6 = { a: { b: [1, 2, 3] } }
-// //write your code here 
-// console.log(invoke(data6, 'a.b', 'splice', [1, 2])) // [2, 3]
+const data6 = { a: { b: [1, 2, 3] } }
+//write your code here 
+function invoke(obj, path, func, args) {
+    const splittedPath = path.split(".");
+    // console.log(splittedPath)
+
+    const target = splittedPath.reduce((acc, key) => {
+        acc = acc[key] ? acc[key] : obj[key];
+        return acc
+    }, {});
+
+    return Array.prototype[func].apply(target, args);
+}
+
+
+console.log(invoke(data6, 'a.b', 'splice', [1, 2])) // [2, 3]
 
 
 // //7
@@ -117,20 +122,42 @@ console.log(isEqual(data5, data52)); // false
 // console.log(isEmptyDeep(data7));
 
 
-// //8
-// const data8 = { a: 1, b: { c: 1 } };  
-// const data81= { a: 1, b: { c: 1 } };  
-// const data82= { a: 1, b: { c: 2 } };
-// //write your code here 
-// console.log(isEqualDeep(data8, data81));// true  
-// console.log(isEqualDeep(data8, data82)); // false  
+//8
+const data8 = { a: 1, b: { c: 1 } };  
+const data81= { a: 1, b: { c: 1 } };  
+const data82= { a: 1, b: { c: 2 } };
+//write your code here 
+function isEqualDeep(obj1, obj2) {
+
+    if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
+              return true;
+            } else {
+              return false;
+            }
+}
+
+console.log(isEqualDeep(data8, data81));// true  
+console.log(isEqualDeep(data8, data82)); // false
+
+console.log("-------------")
+
 
 
 // //9
-// const data9 = { a: 1, b: 2 };  
-// const data91 = { c: 1, b: 2 };
-// //write your code here 
-// console.log(intersection(data9, data91)); // { b: 2 }
+const data9 = { a: 1, b: 2 };  
+const data91 = { c: 1, b: 2 };
+//write your code here 
+
+function intersection(obj1, obj2) {
+
+    return Object.keys(obj1).reduce((acc, key) => {
+      if (obj2[key] === obj1[key]) {
+  
+        acc[key] = obj1[key]
+      } return acc
+    }, {})
+  }
+console.log(intersection(data9, data91)); // { b: 2 }
 
 
 // //10
