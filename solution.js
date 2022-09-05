@@ -159,6 +159,34 @@ function intersection(obj1, obj2) {
   }
 console.log(intersection(data9, data91)); // { b: 2 }
 
+//or
+
+function intersectionV2(object1, object2) {
+
+    const keys = Object.keys(object1)
+    console.log("🚀 ~ intersection ~ keys", keys)
+
+    const object3 = {}
+
+    for (let i = 0; i < keys.length; i++) {
+
+        if (object1[keys[i]] === object2[keys[i]]) {
+            // object1.a === object2.a 
+            // object1.b === object2.b
+
+            object3[keys[i]] = object1[keys[i]]
+            // object3.a = object1.a
+            // object3.b = object1.b
+        }
+    }
+
+    return object3
+}
+
+const idata = { a: 1, b: 2 };  
+const idata2 = { c: 1, b: 2 };
+console.log(intersectionV2(idata, idata2));
+
 
 // //10
 // const data10 = { a: 1, b: { c: 3 } };  
